@@ -29,7 +29,12 @@ def main():
                         help='Path to the input image file')
     parser.add_argument('--algorithm', 
                         type=str, 
-                        choices=['bubble', 'selection', 'insertion', 'quick'],
+                        choices=[
+                            'bubble', 
+                            'selection', 
+                            'insertion', 
+                            'quick',
+                            'merge'],
                         default='bubble', 
                         help='Sorting algorithm')
     parser.add_argument('--step', 
@@ -72,6 +77,8 @@ def main():
         sort_algorithm = insertion_sort
     elif args.algorithm == 'quick':
         sort_algorithm = quick_sort
+    elif args.algorithm == 'merge':
+        sort_algorithm = merge_sort
 
     sorter = Sorter(img, 
                     sort_algorithm, 

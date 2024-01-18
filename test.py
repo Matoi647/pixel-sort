@@ -2,8 +2,8 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from sorter import Sorter
-from algorithm import *
+from src.sorter import Sorter
+from src.algorithm import *
 
 def auto_scale(img, resolution=240):
     height, width = img.shape[0], img.shape[1]
@@ -17,9 +17,9 @@ def upsample(img, factor=3):
     res = cv2.resize(img, (int(width*factor), int(height*factor)), interpolation=cv2.INTER_NEAREST)
     return res
 
-img = cv2.imread('StarryNight.jpg')
-# np.random.seed(42)
-# img = np.random.randint(0, 256, size=(100, 100), dtype=np.uint8)
+# img = cv2.imread('StarryNight.jpg')
+np.random.seed(42)
+img = np.random.randint(0, 256, size=(100, 100), dtype=np.uint8)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 img = auto_scale(img)
 
@@ -32,10 +32,10 @@ def update(frame, sorter):
     return (plt_imshow,)
 
 sorter = Sorter(img, 
-                quick_sort, 
+                merge_sort, 
                 step=1, 
                 sort_by_col=False, 
                 split_rgb=False,
                 reverse=False)
-animation = FuncAnimation(fig, update, fargs=(sorter,), interval=100, blit=True)
+animation = FuncAnimation(fig, update, fargs=(sorter,), interval=10, blit=True)
 plt.show()

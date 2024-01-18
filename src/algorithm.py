@@ -105,3 +105,55 @@ def quick_sort(arr, step=1, is_rgb=True, reverse=False):
         yield from quick_sort_aux(pivot+1, right)
     
     yield from quick_sort_aux(0, n-1)
+
+
+def merge_sort(arr, step=1, is_rgb=True, reverse=False):
+    res = np.copy(arr)
+    n = len(res)
+    count = 0   # swap times
+    flag = -1 if reverse else 1
+
+    def merge_sort_aux(left, right):
+        nonlocal count  # modify the value of the outer variable `count`
+        if left >= right:
+            return
+        
+        mid = (left + right) // 2
+        yield from merge_sort_aux(left, mid)
+        yield from merge_sort_aux(mid+1, right)
+
+        left_res = res[left:mid]
+        right_res = res[mid:right+1]
+        i, j, k = 0, 0, left
+        while i < len(left_res) and j < len(right_res):
+            if flag * cmp_pixel(left_res[i], right_res[j]) < 0:
+                res[k] = np.copy(left_res[i])
+                i += 1
+                k += 1
+                count += 1
+                if count % step == 0:
+                    yield res
+            else:
+                res[k] = np.copy(right_res[j])
+                j += 1
+                k += 1
+                count += 1
+                if count % step == 0:
+                    yield res
+        
+        while i < len(left_res):
+            res[k] = np.copy(left_res[i])
+            i += 1
+            k += 1
+            count += 1
+            if count % step == 0:
+                yield res
+        while j < len(right_res):
+            res[k] = np.copy(right_res[j])
+            j += 1
+            k += 1
+            count += 1
+            if count % step == 0:
+                yield res
+    
+    yield from merge_sort_aux(0, n-1)
