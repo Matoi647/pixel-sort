@@ -122,19 +122,19 @@ def merge_sort(arr, step=1, is_rgb=True, reverse=False):
         yield from merge_sort_aux(left, mid)
         yield from merge_sort_aux(mid+1, right)
 
-        left_res = res[left:mid]
-        right_res = res[mid:right+1]
+        left_res = res[left:mid+1].copy()
+        right_res = res[mid+1:right+1].copy()
         i, j, k = 0, 0, left
         while i < len(left_res) and j < len(right_res):
             if flag * cmp_pixel(left_res[i], right_res[j]) < 0:
-                res[k] = np.copy(left_res[i])
+                res[k] = left_res[i]
                 i += 1
                 k += 1
                 count += 1
                 if count % step == 0:
                     yield res
             else:
-                res[k] = np.copy(right_res[j])
+                res[k] = right_res[j]
                 j += 1
                 k += 1
                 count += 1
@@ -142,14 +142,14 @@ def merge_sort(arr, step=1, is_rgb=True, reverse=False):
                     yield res
         
         while i < len(left_res):
-            res[k] = np.copy(left_res[i])
+            res[k] = left_res[i]
             i += 1
             k += 1
             count += 1
             if count % step == 0:
                 yield res
         while j < len(right_res):
-            res[k] = np.copy(right_res[j])
+            res[k] = right_res[j]
             j += 1
             k += 1
             count += 1

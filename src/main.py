@@ -39,7 +39,7 @@ def main():
                         help='Sorting algorithm')
     parser.add_argument('--step', 
                         type=int, 
-                        default=5, 
+                        default=1, 
                         help='Comparision times or swap times of pixels for each frame')
     parser.add_argument('--sort_by_col', 
                         default=False, 
