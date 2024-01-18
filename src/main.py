@@ -7,6 +7,8 @@ import argparse
 from sorter import Sorter
 from algorithm import *
 
+np.random.seed(42)
+
 def auto_scale(img, resolution=240):
     height, width = img.shape[0], img.shape[1]
     ratio = width / height

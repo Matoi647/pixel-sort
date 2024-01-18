@@ -83,6 +83,9 @@ def quick_sort(arr, step=1, is_rgb=True, reverse=False):
         nonlocal count  # modify the value of the outer variable `count`
         if left >= right:
             return
+        pivot_index = np.random.randint(left, right)
+        # move the pivot to the right, always choose the right pixel as pivot
+        res[pivot_index], res[right] = swap_pixel(res[pivot_index], res[right])
         pivot = np.copy(res[right])
         i = left - 1
         for j in range(left, right):
@@ -92,6 +95,7 @@ def quick_sort(arr, step=1, is_rgb=True, reverse=False):
                 count += 1
                 if count % step == 0:
                     yield res
+        # move the pivot to the final place
         res[i+1], res[right] = swap_pixel(res[i+1], res[right])
         count += 1
         if count % step == 0:
