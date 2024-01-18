@@ -182,10 +182,10 @@ def heap_sort(arr, step=1, is_rgb=True, reverse=False):
 
     def build_heap(arr):
         n = len(arr)
-        for i in range(n//2-1, -1, -1):
+        for i in range((n-2)//2, -1, -1):
             yield from sift_down(arr, i, n-1)
     
     yield from build_heap(res)
     for i in range(n-1, 0, -1):
         res[0], res[i] = swap_pixel(res[0], res[i])
-        yield from sift_down(res, 0, i)
+        yield from sift_down(res, 0, i-1)
