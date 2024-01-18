@@ -1,0 +1,4 @@
+*.jpg
+*.png
+.vscode/
+src/__pycache__/*
