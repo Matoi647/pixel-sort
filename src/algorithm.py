@@ -79,32 +79,32 @@ def quick_sort(arr, step=1, is_rgb=True, reverse=False):
     count = 0   # swap times
     flag = -1 if reverse else 1
 
-    def quick_sort_aux(left, right):
+    def quick_sort_aux(arr, left, right):
         nonlocal count  # modify the value of the outer variable `count`
         if left >= right:
             return
         pivot_index = np.random.randint(left, right)
         # move the pivot to the right, always choose the right pixel as pivot
-        res[pivot_index], res[right] = swap_pixel(res[pivot_index], res[right])
-        pivot = np.copy(res[right])
+        arr[pivot_index], arr[right] = swap_pixel(arr[pivot_index], arr[right])
+        pivot = np.copy(arr[right])
         i = left - 1
         for j in range(left, right):
-            if flag * cmp_pixel(res[j], pivot, is_rgb=is_rgb) < 0:
+            if flag * cmp_pixel(arr[j], pivot, is_rgb=is_rgb) < 0:
                 i += 1
-                res[i], res[j] = swap_pixel(res[i], res[j])
+                arr[i], arr[j] = swap_pixel(arr[i], arr[j])
                 count += 1
                 if count % step == 0:
-                    yield res
+                    yield arr
         # move the pivot to the final place
-        res[i+1], res[right] = swap_pixel(res[i+1], res[right])
+        arr[i+1], arr[right] = swap_pixel(arr[i+1], arr[right])
         count += 1
         if count % step == 0:
-            yield res
+            yield arr
         pivot = i+1
-        yield from quick_sort_aux(left, pivot-1)
-        yield from quick_sort_aux(pivot+1, right)
+        yield from quick_sort_aux(arr, left, pivot-1)
+        yield from quick_sort_aux(arr, pivot+1, right)
     
-    yield from quick_sort_aux(0, n-1)
+    yield from quick_sort_aux(res, 0, n-1)
 
 
 def merge_sort(arr, step=1, is_rgb=True, reverse=False):
@@ -113,47 +113,43 @@ def merge_sort(arr, step=1, is_rgb=True, reverse=False):
     count = 0   # swap times
     flag = -1 if reverse else 1
 
-    def merge_sort_aux(left, right):
+    def merge_sort_aux(arr, left, right):
         nonlocal count  # modify the value of the outer variable `count`
         if left >= right:
             return
         
         mid = (left + right) // 2
-        yield from merge_sort_aux(left, mid)
-        yield from merge_sort_aux(mid+1, right)
+        yield from merge_sort_aux(arr, left, mid)
+        yield from merge_sort_aux(arr, mid+1, right)
 
-        left_res = res[left:mid+1].copy()
-        right_res = res[mid+1:right+1].copy()
+        left_arr = arr[left:mid+1].copy()
+        right_arr = arr[mid+1:right+1].copy()
         i, j, k = 0, 0, left
-        while i < len(left_res) and j < len(right_res):
-            if flag * cmp_pixel(left_res[i], right_res[j]) < 0:
-                res[k] = left_res[i]
+        while i < len(left_arr) and j < len(right_arr):
+            if flag * cmp_pixel(left_arr[i], right_arr[j], is_rgb=is_rgb) < 0:
+                arr[k] = left_arr[i]
                 i += 1
-                k += 1
-                count += 1
-                if count % step == 0:
-                    yield res
             else:
-                res[k] = right_res[j]
+                arr[k] = right_arr[j]
                 j += 1
-                k += 1
-                count += 1
-                if count % step == 0:
-                    yield res
+            k += 1
+            count += 1
+            if count % step == 0:
+                yield arr
         
-        while i < len(left_res):
-            res[k] = left_res[i]
+        while i < len(left_arr):
+            arr[k] = left_arr[i]
             i += 1
             k += 1
             count += 1
             if count % step == 0:
-                yield res
-        while j < len(right_res):
-            res[k] = right_res[j]
+                yield arr
+        while j < len(right_arr):
+            arr[k] = right_arr[j]
             j += 1
             k += 1
             count += 1
             if count % step == 0:
-                yield res
+                yield arr
     
-    yield from merge_sort_aux(0, n-1)
+    yield from merge_sort_aux(res, 0, n-1)

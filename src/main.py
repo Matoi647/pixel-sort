@@ -34,13 +34,18 @@ def main():
                             'selection', 
                             'insertion', 
                             'quick',
-                            'merge'],
+                            'merge',
+                            'heap'],
                         default='bubble', 
                         help='Sorting algorithm')
+    parser.add_argument('--interval', 
+                        type=int, 
+                        default=10, 
+                        help='Time interval between two frame')
     parser.add_argument('--step', 
                         type=int, 
                         default=1, 
-                        help='Comparision times or swap times of pixels for each frame')
+                        help='Number of pixels swapped per frame')
     parser.add_argument('--sort_by_col', 
                         default=False, 
                         action='store_true', 
@@ -79,6 +84,8 @@ def main():
         sort_algorithm = quick_sort
     elif args.algorithm == 'merge':
         sort_algorithm = merge_sort
+    elif args.algorithm == 'heap':
+        sort_algorithm = heap_sort
 
     sorter = Sorter(img, 
                     sort_algorithm, 
@@ -86,7 +93,7 @@ def main():
                     sort_by_col=args.sort_by_col, 
                     split_rgb=args.split_rgb,
                     reverse=args.reverse)
-    animation = FuncAnimation(fig, update, fargs=(sorter,), interval=10, blit=True)
+    animation = FuncAnimation(fig, update, fargs=(sorter,), interval=args.interval, blit=True)
     plt.show()
 
 if __name__ == '__main__':
