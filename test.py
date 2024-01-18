@@ -32,7 +32,7 @@ def update(frame, sorter):
     return (plt_imshow,)
 
 sorter = Sorter(img, 
-                merge_sort, 
+                heap_sort, 
                 step=1, 
                 sort_by_col=False, 
                 split_rgb=False,

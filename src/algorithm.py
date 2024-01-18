@@ -153,3 +153,39 @@ def merge_sort(arr, step=1, is_rgb=True, reverse=False):
                 yield arr
     
     yield from merge_sort_aux(res, 0, n-1)
+
+def heap_sort(arr, step=1, is_rgb=True, reverse=False):
+    res = np.copy(arr)
+    n = len(res)
+    count = 0   # swap times
+    flag = -1 if reverse else 1
+
+    def sift_down(arr, root, end):
+        nonlocal count
+        while 2 * root + 1 <= end:
+            child = 2 * root + 1    # left child
+            max_node = root
+            # if left child > root
+            if flag * cmp_pixel(arr[child], arr[max_node]) > 0:
+                max_node = child
+            # if right child > max(left child, root)
+            if child+1 <= end and flag * cmp_pixel(arr[child+1], arr[max_node]) > 0:
+                max_node = child+1
+            if max_node != root:
+                arr[root], arr[max_node] = swap_pixel(arr[root], arr[max_node])
+                root = max_node
+                count += 1
+                if count % step == 0:
+                    yield arr
+            else:
+                break
+
+    def build_heap(arr):
+        n = len(arr)
+        for i in range(n//2-1, -1, -1):
+            yield from sift_down(arr, i, n-1)
+    
+    yield from build_heap(res)
+    for i in range(n-1, 0, -1):
+        res[0], res[i] = swap_pixel(res[0], res[i])
+        yield from sift_down(res, 0, i)
