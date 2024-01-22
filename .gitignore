@@ -1,4 +1,2 @@
-*.jpg
-*.png
 .vscode/
-src/__pycache__/*
+PixelSort/__pycache__/*

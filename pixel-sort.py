@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import argparse
 
-from sorter import Sorter
-from algorithm import *
+from PixelSort.sorter import Sorter
+from PixelSort.algorithm import *
 
 np.random.seed(42)
 
@@ -27,6 +27,10 @@ def main():
     parser.add_argument('image_path', 
                         type=str, 
                         help='Path to the input image file')
+    parser.add_argument('--resolution', 
+                        type=int, 
+                        default=240, 
+                        help='Resample image to given resolution (image height)')
     parser.add_argument('--algorithm', 
                         type=str, 
                         choices=[
@@ -42,7 +46,7 @@ def main():
     parser.add_argument('--interval', 
                         type=int, 
                         default=10, 
-                        help='Time interval between two frame')
+                        help='Time interval between two frame (in miliseconds)')
     parser.add_argument('--step', 
                         type=int, 
                         default=1, 
@@ -64,10 +68,11 @@ def main():
 
     img = cv2.imread(args.image_path)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    img = auto_scale(img)
+    img = auto_scale(img, args.resolution)
 
     fig, ax = plt.subplots()
-    plt_imshow = ax.imshow(upsample(img))
+    plt.axis('off')
+    plt_imshow = ax.imshow(img)
     def update(frame, sorter):
         next_frame = sorter()
         next_frame = upsample(next_frame)
