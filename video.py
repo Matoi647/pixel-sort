@@ -40,8 +40,7 @@ def main():
                             'insertion', 
                             'quick',
                             'merge',
-                            'heap',
-                            'count'],
+                            'heap'],
                         default='bubble', 
                         help='Sorting algorithm')
     parser.add_argument('--interval', 
@@ -84,8 +83,6 @@ def main():
         sort_algorithm = merge_sort
     elif args.algorithm == 'heap':
         sort_algorithm = heap_sort
-    elif args.algorithm == 'count':
-        sort_algorithm = counting_sort
 
     sorter = Sorter(img, 
                     sort_algorithm, 
