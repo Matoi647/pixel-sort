@@ -40,34 +40,34 @@ some arguments:
 ``` shell
 python pixel-sort.py "assets\StarryNight.jpg" --algorithm bubble --sort_by_col --step 10 --reverse
 ```
-![SrarryNight_bubble.gif](assets\StarryNight_bubble.gif)
+![SrarryNight_bubble.gif](assets/StarryNight_bubble.gif)
 
 ### Selection Sort
 ``` shell
 python pixel-sort.py "assets\StarryNight.jpg" --algorithm selection --reverse
 ```
-![SrarryNight_selection.gif](assets\StarryNight_selection.gif)
+![SrarryNight_selection.gif](assets/StarryNight_selection.gif)
 
 ### Insertion Sort
 ``` shell
 python pixel-sort.py "assets\StarryNight.jpg" --algorithm insertion --step 10
 ```
-![SrarryNight_insertion.gif](assets\StarryNight_insertion.gif)
+![SrarryNight_insertion.gif](assets/StarryNight_insertion.gif)
 
 ### Quick Sort
 ``` shell
 python pixel-sort.py "assets\StarryNight.jpg" --algorithm quick
 ```
-![SrarryNight_quick.gif](assets\StarryNight_quick.gif)
+![SrarryNight_quick.gif](assets/StarryNight_quick.gif)
 
 ### Merge Sort
 ``` shell
 python pixel-sort.py "assets\StarryNight.jpg" --algorithm merge
 ```
-![SrarryNight_merge.gif](assets\StarryNight_merge.gif)
+![SrarryNight_merge.gif](assets/StarryNight_merge.gif)
 
 ### Heap Sort
 ``` shell
 python pixel-sort.py "assets\StarryNight.jpg" --algorithm heap
 ```
-![SrarryNight_heap.gif](assets\StarryNight_heap.gif)
+![SrarryNight_heap.gif](assets/StarryNight_heap.gif)
