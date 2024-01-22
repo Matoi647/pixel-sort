@@ -17,9 +17,9 @@ def upsample(img, factor=3):
     res = cv2.resize(img, (int(width*factor), int(height*factor)), interpolation=cv2.INTER_NEAREST)
     return res
 
-# img = cv2.imread('StarryNight.jpg')
-np.random.seed(42)
-img = np.random.randint(0, 256, size=(100, 100), dtype=np.uint8)
+img = cv2.imread('StarryNight.jpg')
+# np.random.seed(42)
+# img = np.random.randint(0, 256, size=(100, 100), dtype=np.uint8)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 img = auto_scale(img)
 
@@ -32,10 +32,10 @@ def update(frame, sorter):
     return (plt_imshow,)
 
 sorter = Sorter(img, 
-                heap_sort, 
+                counting_sort, 
                 step=1, 
                 sort_by_col=False, 
                 split_rgb=False,
-                reverse=False)
+                reverse=True)
 animation = FuncAnimation(fig, update, fargs=(sorter,), interval=10, blit=True)
 plt.show()
