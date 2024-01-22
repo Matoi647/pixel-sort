@@ -27,7 +27,7 @@ pyhton pixel-sort.py [image path] [arguments]
 some arguments:
 | Parameter         | Type    | Default | Description                                                  |
 |-------------------|---------|---------|--------------------------------------------------------------|
-| `--resolution`      | int     | 240      | Resample image to given resolution (image height)           |
+| `--resolution`      | int     | 360      | Resample image to given resolution (image height)           |
 | `--algorithm`     | str     | bubble  | Sorting algorithm to apply. Choices: bubble, selection, insertion, quick, merge, heap |
 | `--interval`      | int     | 10      | Time interval between two frames (in milliseconds).           |
 | `--step`          | int     | 1       | Number of pixels swapped per frame.                           |

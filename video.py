@@ -3,6 +3,7 @@ import cv2
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import argparse
+import os
 
 from PixelSort.sorter import Sorter
 from PixelSort.algorithm import *
@@ -39,7 +40,8 @@ def main():
                             'insertion', 
                             'quick',
                             'merge',
-                            'heap'],
+                            'heap',
+                            'count'],
                         default='bubble', 
                         help='Sorting algorithm')
     parser.add_argument('--interval', 
@@ -82,6 +84,8 @@ def main():
         sort_algorithm = merge_sort
     elif args.algorithm == 'heap':
         sort_algorithm = heap_sort
+    elif args.algorithm == 'count':
+        sort_algorithm = counting_sort
 
     sorter = Sorter(img, 
                     sort_algorithm, 
@@ -89,18 +93,22 @@ def main():
                     sort_by_col=args.sort_by_col, 
                     split_rgb=args.split_rgb,
                     reverse=args.reverse)
-    
-    fig, ax = plt.subplots()
-    plt.axis('off')
-    plt_imshow = ax.imshow(img)
-    def update(frame, sorter):
-        next_frame = sorter()
-        next_frame = upsample(next_frame)
-        plt_imshow.set_array(next_frame)
-        return (plt_imshow,)
 
-    animation = FuncAnimation(fig, update, fargs=(sorter,), interval=args.interval, blit=True)
-    plt.show()
+    fps = 30
+    upsample_factor = 3
+    height, width = img.shape[0] * upsample_factor, img.shape[1] * upsample_factor
+    image_name = os.path.splitext(os.path.basename(args.image_path))[0]
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    output_video = cv2.VideoWriter(f'assets\\{image_name}_{args.algorithm}.mp4', 
+                                   fourcc, fps, (width, height))
+    print('pixel sorting...')
+    while not np.all(sorter.is_sorted):
+        next_frame = sorter()
+        next_frame = cv2.cvtColor(next_frame, cv2.COLOR_RGB2BGR)
+        next_frame = upsample(next_frame, upsample_factor)
+        output_video.write(next_frame)
+    output_video.release()
+    print('pixel sorting completed...')
 
 if __name__ == '__main__':
     main()

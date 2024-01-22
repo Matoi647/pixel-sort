@@ -189,27 +189,3 @@ def heap_sort(arr, step=1, is_rgb=True, reverse=False):
     for i in range(n-1, 0, -1):
         res[0], res[i] = swap_pixel(res[0], res[i])
         yield from sift_down(res, 0, i-1)
-
-def counting_sort(arr, step=1, is_rgb=True, reverse=False):
-    res = np.copy(arr)
-    n = len(res)
-    flag = -1 if reverse else 1
-
-    arr_copy = np.copy(arr)
-    pixel_val = None    # average RGB value
-    if is_rgb:
-        pixel_val = (np.sum(arr_copy, axis=1) // 3).astype(int)
-    else:
-        pixel_val = np.copy(arr_copy)
-    
-    pixel_count = np.zeros(pixel_val.max() + 1, dtype=int)
-    for i in range(n):
-        index = pixel_val[i]
-        pixel_count[index] += 1
-    for i in range(1, len(pixel_count)):
-        pixel_count[i] += pixel_count[i-1]
-    for i in range(n-1, -1, -1):
-        index = pixel_val[i]
-        res[pixel_count[index] - 1] = arr_copy[i]
-        pixel_count[index] -= 1
-        yield res
