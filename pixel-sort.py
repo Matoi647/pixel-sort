@@ -70,15 +70,6 @@ def main():
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = auto_scale(img, args.resolution)
 
-    fig, ax = plt.subplots()
-    plt.axis('off')
-    plt_imshow = ax.imshow(img)
-    def update(frame, sorter):
-        next_frame = sorter()
-        next_frame = upsample(next_frame)
-        plt_imshow.set_array(next_frame)
-        return (plt_imshow,)
-
     sort_algorithm = None
     if args.algorithm == 'bubble':
         sort_algorithm = bubble_sort
@@ -101,6 +92,16 @@ def main():
                     sort_by_col=args.sort_by_col, 
                     split_rgb=args.split_rgb,
                     reverse=args.reverse)
+    
+    fig, ax = plt.subplots()
+    plt.axis('off')
+    plt_imshow = ax.imshow(img)
+    def update(frame, sorter):
+        next_frame = sorter()
+        next_frame = upsample(next_frame)
+        plt_imshow.set_array(next_frame)
+        return (plt_imshow,)
+
     animation = FuncAnimation(fig, update, fargs=(sorter,), interval=args.interval, blit=True)
     plt.show()
 
