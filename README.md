@@ -2,7 +2,7 @@
 Display the sorting process of different sorting algorithms on image pixels
 
 ## Featrues
-Six kinds of sorting algorithm: 
+Six sorting algorithms: 
 - bubble sort
 - selection sort
 - insertion sort
@@ -36,7 +36,38 @@ some arguments:
 | `--reverse`       | boolean | False   | Sort pixel values in descending order.                        |
 
 ## Examples
+### Bubble Sort
+``` shell
+python pixel-sort.py "assets/StarryNight.jpg" --algorithm bubble --sort_by_col --step 10 --reverse
 ```
-python pixel-sort.py "StarryNight.jpg" --algorithm bubble --sort_by_col --step 10 --reverse
+![SrarryNight_bubble.gif](assets/StarryNight_bubble.gif)
+
+### Selection Sort
+``` shell
+python pixel-sort.py "assets\StarryNight.jpg" --algorithm selection --reverse
 ```
-<img src="bubble.gif" alt="Alt text" width="560" height="480">
+![SrarryNight_selection.gif](assets/StarryNight_selection.gif)
+
+### Insertion Sort
+``` shell
+python video.py "assets\StarryNight.jpg" --algorithm insertion --step 10
+```
+![SrarryNight_insertion.gif](assets/StarryNight_insertion.gif)
+
+### Quick Sort
+``` shell
+python pixel-sort.py "assets\StarryNight.jpg" --algorithm quick
+```
+![SrarryNight_quick.gif](assets/StarryNight_quick.gif)
+
+### Merge Sort
+``` shell
+python pixel-sort.py "assets\StarryNight.jpg" --algorithm merge
+```
+![SrarryNight_merge.gif](assets/StarryNight_merge.gif)
+
+### Heap Sort
+``` shell
+python pixel-sort.py "assets\StarryNight.jpg" --algorithm heap
+```
+![SrarryNight_heap.gif](assets/StarryNight_heap.gif)
