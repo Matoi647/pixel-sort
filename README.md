@@ -50,7 +50,7 @@ python pixel-sort.py "assets\StarryNight.jpg" --algorithm selection --reverse
 
 ### Insertion Sort
 ``` shell
-python video.py "assets\StarryNight.jpg" --algorithm insertion --step 10
+python pixel-sort.py "assets\StarryNight.jpg" --algorithm insertion --step 10
 ```
 ![SrarryNight_insertion.gif](assets\StarryNight_insertion.gif)
 
