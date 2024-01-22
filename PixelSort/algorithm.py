@@ -166,10 +166,10 @@ def heap_sort(arr, step=1, is_rgb=True, reverse=False):
             child = 2 * root + 1    # left child
             max_node = root
             # if left child > root
-            if flag * cmp_pixel(arr[child], arr[max_node]) > 0:
+            if flag * cmp_pixel(arr[child], arr[max_node], is_rgb=is_rgb) > 0:
                 max_node = child
             # if right child > max(left child, root)
-            if child+1 <= end and flag * cmp_pixel(arr[child+1], arr[max_node]) > 0:
+            if child+1 <= end and flag * cmp_pixel(arr[child+1], arr[max_node], is_rgb=is_rgb) > 0:
                 max_node = child+1
             if max_node != root:
                 arr[root], arr[max_node] = swap_pixel(arr[root], arr[max_node])
