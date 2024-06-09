@@ -21,7 +21,10 @@ pip install -r requirements.txt
 
 ## Usage
 ``` shell
+# realtime display with matplotlib
 pyhton pixel-sort.py [image path] [arguments]
+# save video
+pyhton video.py [image path] [arguments]
 ```
 
 some arguments:
